@@ -11,3 +11,5 @@ brew install ncdu
 brew install node
 node --version
 npm --version
+
+#npm install react-bootstrap bootstrap
