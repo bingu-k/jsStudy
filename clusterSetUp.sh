@@ -13,3 +13,4 @@ node --version
 npm --version
 
 #npm install react-bootstrap bootstrap
+#npm install styled-components

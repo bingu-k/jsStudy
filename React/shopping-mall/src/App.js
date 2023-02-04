@@ -3,13 +3,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import axios, { Axios } from 'axios';
 import './App.css';
 import { useState } from 'react';
 import data from './data.js';
-import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
+import Detail from './Detail.js';
+import { Route, Routes, useNavigate, Outlet, useParams } from 'react-router-dom'
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
+  let [count, setCount] = useState(2);
 
   return (
     <div className="App">
@@ -19,7 +23,7 @@ function App() {
           <Navbar.Brand href="/">이야 진짜 싸다!</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">홈</Nav.Link>
-            <Nav.Link href="/detail">상세페이지</Nav.Link>
+            <Nav.Link href="/detail/0">상세페이지</Nav.Link>
             <Nav.Link href="/event">이벤트</Nav.Link>
           </Nav>
         </Container>
@@ -29,14 +33,24 @@ function App() {
         <Route path='/' element={<>
             <div className='main-bg'></div>
             <Container>
-              <Row>
-              {
-                shoes.map(function(shoe){ return (<Card shoe={shoe} key={shoe.id}></Card>) })
-              }
+              <Row md={3}>
+                { shoes.map(function(shoe){ return ( <Card shoe={shoe} key={shoe.id}></Card> ) }) }
               </Row>
             </Container>
+
+            <Button onClick={() => {
+              axios.get(`https://codingapple1.github.io/shop/data${count}.json`)
+              .then((data) => {
+                let copyShoes = [...shoes, ...data.data];
+                setShoes(copyShoes);
+                setCount(count + 1);
+              })
+              .catch(() => {
+                console.log('실패함 ㅅㄱ')
+              })
+            }}>더보기</Button>{' '}
           </>} />
-        <Route path='/detail' element={<>{shoes.map(function(shoe){return(<Detail shoe={shoe} key={shoe.id}/>)})}</>}/>
+        <Route path='/detail/:id' element={<Detail shoes={shoes}/>}/>
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버임</div>}/>
         </Route>
@@ -75,28 +89,12 @@ function About(props) {
 function Card(props) {
   return (
     <Col>
-      <img src={props.shoe.url} width="80%"/>
+      <img src={`https://codingapple1.github.io/shop/shoes${props.shoe.id + 1}.jpg`} width="80%"/>
       <h4>{props.shoe.title}</h4>
       <p>{props.shoe.content}</p>
       <p>Price : {props.shoe.price.toLocaleString('ko-KR')}원</p>
+      <Button variant="danger">구매하기</Button>{' '}
     </Col>
-  )
-}
-
-function Detail(props) {
-  return (
-    <Container>
-      <Row>
-        <Col>
-          <img src={ props.shoe.url } width="100%" />
-        </Col>
-        <Col>
-          <h4 className='pt-5'>{ props.shoe.title }</h4>
-          <p>{ props.shoe.content }</p>
-          <p>Price : {props.shoe.price.toLocaleString('ko-KR')}원</p>
-        </Col>
-      </Row>
-    </Container>
   )
 }
 
