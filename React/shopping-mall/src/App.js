@@ -9,7 +9,11 @@ import './App.css';
 import { useState } from 'react';
 import data from './data.js';
 import Detail from './Detail.js';
+import Cart from './Cart.js';
 import { Route, Routes, useNavigate, Outlet, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { addState } from "./store";
+
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -17,7 +21,6 @@ function App() {
 
   return (
     <div className="App">
-
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/">이야 진짜 싸다!</Navbar.Brand>
@@ -25,6 +28,7 @@ function App() {
             <Nav.Link href="/">홈</Nav.Link>
             <Nav.Link href="/detail/0">상세페이지</Nav.Link>
             <Nav.Link href="/event">이벤트</Nav.Link>
+            <Nav.Link href="/cart">장바구니</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -34,7 +38,10 @@ function App() {
             <div className='main-bg'></div>
             <Container>
               <Row md={3}>
-                { shoes.map(function(shoe){ return ( <Card shoe={shoe} key={shoe.id}></Card> ) }) }
+                {
+                  shoes.map(function(shoe){
+                    return ( <Card shoe={shoe} key={shoe.id}></Card> ) })
+                }
               </Row>
             </Container>
 
@@ -50,7 +57,7 @@ function App() {
               })
             }}>더보기</Button>{' '}
           </>} />
-        <Route path='/detail/:id' element={<Detail shoes={shoes}/>}/>
+        <Route path='/detail/:id' element={ <Detail shoes={shoes}/> }/>
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>멤버임</div>}/>
         </Route>
@@ -58,6 +65,7 @@ function App() {
           <Route path='one' element={<div>첫 주문시 양배추즙 서비스</div>}/>
           <Route path='two' element={<div>생일기념 쿠폰받기</div>}/>
         </Route>
+        <Route path='/cart' element={<Cart />}/>
         <Route path='*' element={<div>없는 페이지요</div>}/>
       </Routes>
 
@@ -87,13 +95,16 @@ function About(props) {
 }
 
 function Card(props) {
+  let dispatch = useDispatch();
   return (
     <Col>
       <img src={`https://codingapple1.github.io/shop/shoes${props.shoe.id + 1}.jpg`} width="80%"/>
       <h4>{props.shoe.title}</h4>
       <p>{props.shoe.content}</p>
       <p>Price : {props.shoe.price.toLocaleString('ko-KR')}원</p>
-      <Button variant="danger">구매하기</Button>{' '}
+      <Button variant="danger" onClick={()=>{
+        dispatch(addState(props.shoe))
+      }}>구매하기</Button>{' '}
     </Col>
   )
 }
