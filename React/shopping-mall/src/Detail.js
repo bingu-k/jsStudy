@@ -3,38 +3,42 @@ import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
 import Col from 'react-bootstrap/Col';
 
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { useParams } from 'react-router-dom';
 
 import Btn from './Button.js';
+import { addSample } from "./store/userSlice.js";
 
 function Detail(props) {
-    let [t, setT] = useState(false);
-    useEffect(() => {
-        let timer = setTimeout(() => {setT(true)}, 2000);
-        return () => { clearTimeout(timer) }
-    }, []);
+  let [t, setT] = useState(false);
+  useEffect(() => {
+    let timer = setTimeout(() => {setT(true)}, 2000);
+    return () => { clearTimeout(timer) }
+  }, []);
 
-    let [num, setNum] = useState('');
-    useEffect(() => {
-        if (isNaN(num) == true) {
-            alert('그러지 마셈')
-        }
-    }, [num]);
+  let [num, setNum] = useState('');
+  useEffect(() => {
+    if (isNaN(num) == true) {
+      alert('그러지 마셈')
+    }
+  }, [num]);
 
-    let [count, setCount] = useState(0);
-    let {id} = useParams();
+  let [count, setCount] = useState(0);
+  let {id} = useParams();
 
-    let shoe = props.shoes.find((s) => { return s.id == id } );
+  let shoe = props.shoes.find((s) => { return s.id == id } );
 
-    let [page, setPage] = useState("");
-    useEffect(()=> {
-        let timer = setTimeout(()=>{setPage("end")}, 10)
-        return (()=>{
-            clearTimeout(timer)
-            setPage('')
-        })
-    }, [id])
+  let [page, setPage] = useState("");
+  useEffect(()=> {
+    let timer = setTimeout(()=>{setPage("end")}, 10)
+    return (()=>{
+      clearTimeout(timer)
+      setPage('')
+    })
+  }, [id])
+  
+  let dispatch = useDispatch();
 
 	if (shoe)
 	{

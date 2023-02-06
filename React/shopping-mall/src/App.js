@@ -12,7 +12,7 @@ import Detail from './Detail.js';
 import Cart from './Cart.js';
 import { Route, Routes, useNavigate, Outlet, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { addState } from "./store";
+import { addSample } from "./store/userSlice.js";
 
 
 function App() {
@@ -102,8 +102,9 @@ function Card(props) {
       <h4>{props.shoe.title}</h4>
       <p>{props.shoe.content}</p>
       <p>Price : {props.shoe.price.toLocaleString('ko-KR')}원</p>
-      <Button variant="danger" onClick={()=>{
-        dispatch(addState(props.shoe))
+      <Button variant="danger" onClick={() => {
+        console.log("what");
+        dispatch(addSample(props.shoe));
       }}>구매하기</Button>{' '}
     </Col>
   )

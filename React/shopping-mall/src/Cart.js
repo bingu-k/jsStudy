@@ -1,6 +1,6 @@
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { addCount, addState } from "./store";
+import { addCount } from "./store/userSlice.js";
 
 function Cart() {
 	let samples = useSelector((state) => state.sample );
@@ -8,9 +8,6 @@ function Cart() {
 	
 	return (
 		<div>
-			<button onClick={() => {
-				dispatch(addState({id : 1, name : 'Red Knit', count : 3}))
-			}}>+++</button>
 		<Table striped bordered hover variant="dark">
 			<thead>
 				<tr>
