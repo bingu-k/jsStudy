@@ -38,5 +38,3 @@ function selectSubject(a:{ subject: string | string[]}) : string {
         return "No";
 }
 
-type animal : string | undefined | number;
-
