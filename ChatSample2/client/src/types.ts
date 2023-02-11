@@ -2,7 +2,8 @@ import React from "react";
 
 export interface Message {
     name :string,
-    text :string
+    text :string,
+	time :string,
 };
 
 export type InputEvent = React.FormEvent<HTMLFormElement>;

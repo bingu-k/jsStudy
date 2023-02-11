@@ -11,11 +11,15 @@ export default function ChatRoom({ nick } :{nick :string}) {
   let dispatch = useDispatch();
   
   const [receivedMsg, setReceivedMsg] = useState<Message>();
-  const chatWindow = useRef(null);
-
+  const chatWindow = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     if (receivedMsg) {
-      dispatch(addMsg(receivedMsg))
+      dispatch(addMsg(receivedMsg));
+    }
+    if (chatWindow.current) {
+      chatWindow.current.scrollTop = chatWindow.current.scrollHeight;
+      console.log(chatWindow.current.scrollHeight);
     }
   }, [receivedMsg]);
 
@@ -24,18 +28,21 @@ export default function ChatRoom({ nick } :{nick :string}) {
   return (
     <div
       className="d-flex flex-column"
-      style={{ width: 1000 }}>
-      <div className="text-box">
-        <span>{nick}님 환영합니다.</span>
+      style={{ width: "auto"}}>
+      <div className="text-box" style={{ background: "black", color: "white" }}>
+        <span style={{ fontSize: "200%" }}>{nick}님 환영합니다.</span>
       </div>
       <div
-        className="chat-window card"
+        className="Chat"
         ref={chatWindow}
       >
       {
         msgList && msgList.map((msg :Message, idx :number) => {
+          let fontColor = msg.name === "me" ? "#b22222" : "black";
           return (
-            <div key={idx} className="d-flex flex-row">
+            <div key={idx} className="d-flex flex-row" 
+              style={{ background: "#fffaf0", color: `${fontColor}`, fontSize: "100%"}}>
+				      <div className="time">({msg.time})</div>
               <div className="message-nickname">{msg.name} :</div>
               <div>{msg.text}</div>
             </div>

@@ -21,20 +21,26 @@ io.on("connection", (socket : any) => {
     if (socket.nickname === "Unknown") {
       socket.nickname = nick;
     }
-    console.log(`${socket.nickname} : Enter the Server`);
+	let msg :Message = {name: socket.nickname, text: `Enter the ${RoomName}`, time: new Date().toLocaleTimeString('en-US')};
+    socket.to(RoomName).emit(SOCKET_EVENT.RECEIVE, msg);
+    console.log(`(${msg.time})${msg.name} : ${msg.text}`);
   });
   socket.on(SOCKET_EVENT.CHANGE_NICKNAME, (nick :string) => {
-    console.log(`${socket.nickname} -> ${nick} : Change name`);
+	let msg :Message = { name: `${socket.nickname} -> ${nick}`, text: "Change name", time: new Date().toLocaleTimeString('en-US')};
+    socket.to(RoomName).emit(SOCKET_EVENT.RECEIVE, msg);
     socket.nickname = nick;
   })
 
   socket.on(SOCKET_EVENT.SEND, (info :Message) => {
-    console.log(`${info.name} : ${info.text}`)
-    const msg :Message = { name: info.name, text: info.text };
-    socket.to(RoomName).emit(SOCKET_EVENT.RECEIVE, msg);
+	  socket.to(RoomName).emit(SOCKET_EVENT.RECEIVE, info);
+	  console.log(`(${info.time})${info.name} : ${info.text}`);
   });
 
-  socket.on(SOCKET_EVENT.DOSCONNECT, () => console.log(`${socket.nickname} : Disconnected`));
+  socket.on(SOCKET_EVENT.DOSCONNECT, () => {
+	let msg :Message = { name: `${socket.nickname}`, text: `Leave the ${RoomName}`, time: new Date().toLocaleTimeString('en-US')};
+    socket.to(RoomName).emit(SOCKET_EVENT.RECEIVE, msg);
+    console.log(`(${msg.time})${msg.name} : ${msg.text}`);
+});
 });
 
 httpServer.listen(2222, () => {

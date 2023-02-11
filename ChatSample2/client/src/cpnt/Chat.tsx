@@ -12,10 +12,10 @@ export default function Chat({ nick } :{nick :string}) {
   const chatInputRef = useRef<HTMLInputElement>(null);
 
   const buttonHandler = () => {
-    const enteredText : Message = { name: nick, text :chatInputRef.current!.value};
+    const enteredText : Message = { name: nick, text :chatInputRef.current!.value, time :new Date().toLocaleTimeString('en-US')};
     if (chatInputRef.current!.value !== "") {
       MySocket.instance.emit(SOCKET_EVENT.SEND, enteredText);
-      dispatch(addMsg({name: "me", text:chatInputRef.current!.value}));
+      dispatch(addMsg({name: "me", text: enteredText.text, time: enteredText.time}));
       chatInputRef.current!.value = "";
     }
   }

@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.ts",
   "scripts": {
     "start": "npx ts-node src/server.ts",
@@ -18,5 +17,6 @@
   "devDependencies": {
     "@types/node": "^18.13.0",
     "ts-node": "^10.9.1"
-  }
+  },
+  "description": ""
 }
