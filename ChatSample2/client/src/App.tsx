@@ -23,23 +23,21 @@ function App() {
   }, [nick]);
 
   return (
-		<>
-			<Container>
-				<Row>
-					<Col xs={3}>1 of 3</Col>
-					<Col xs={6} style={{background :"black"}}>
-						<div className="App">
-							<Setname nick={nick} setNick={setNick}/>
-							<Chat nick={nick}/>
-							<ChatRoom nick={nick}/>
-						</div>
-					</Col>
-					<Col xs={3}>
-						<NewChatRoom/>
-					</Col>
-				</Row>
-			</Container>
-		</>
+    <Container fluid className='vw-100 vh-100'>
+      <Row className='vh-100' style={{background:"black"}}>
+        <Col md={3} className='px-0'>1 of 3</Col>
+        <Col style={{background:"grey"}}>
+          <div className="App">
+            <Setname nick={nick} setNick={setNick}/>
+            <Chat nick={nick}/>
+            <ChatRoom nick={nick}/>
+          </div>
+        </Col>
+        <Col md={3} className='px-0'>
+          <NewChatRoom/>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

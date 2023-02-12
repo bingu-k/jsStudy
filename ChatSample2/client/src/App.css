@@ -2,6 +2,23 @@
   text-align: center;
 }
 
+.MenuBtn {
+  width: 100%;
+}
+
+.Channels {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ChannelBtn {
+  width: 25%;
+  color: white;
+  min-width: 100%;
+}
+
 .Chat {
   height: 300px;
   overflow-y: scroll;
