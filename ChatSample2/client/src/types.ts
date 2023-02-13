@@ -17,3 +17,6 @@ export const SOCKET_EVENT = {
     SEND: "SEND",
     RECEIVE: "RECEIVE"
 }
+
+export const SHOW_CHANNEL :boolean = false;
+export const SHOW_CHATROOM :boolean = true;

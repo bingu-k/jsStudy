@@ -1,44 +1,25 @@
-import { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { SHOW_CHANNEL, SHOW_CHATROOM } from "../types"
 
-const SHOW_CHANNEL :boolean = false;
-const SHOW_CHATROOM :boolean = true;
-const CHANNEL : string = "채널방";
-const CHATROOM : string = "채팅창";
+const CHANNEL : string = "Channel";
+const CHATROOM : string = "Chatting";
 
-export function ChatMenuBar() {
-  let LBtn :string = CHANNEL;
-  let RBtn :string = "나가기";
-  let flag :boolean = SHOW_CHANNEL;
-
-  useEffect(() => {
-    if (flag === SHOW_CHANNEL) {
-      LBtn = CHANNEL;
-    }
-    else if (flag === SHOW_CHATROOM) {
-      LBtn = CHATROOM;
-    }
-  }, [flag])
-
+export function ChatMenuBar({flag, setFlag} :{flag :boolean, setFlag :React.Dispatch<React.SetStateAction<boolean>>}) {
   return (
-    <Container className="w-100 p-0" style={{height: "90px"}}>
+    <Container className="w-100 p-0">
       <Row
         className="d-flex text-center justify-content-center align-items-center">
-        <Col md={3}>
-          <Button className="MenuBtn"
-            variant="outline-light"
-            size="lg">{LBtn}
-          </Button>
-        </Col>
         <Col>
-          <span style={{ color:"white", fontSize: "30px"}}>
-            Chat Room
+          <span style={{ color:"white", fontSize:"auto"}}>
+          { flag === SHOW_CHANNEL ? CHANNEL : CHATROOM }
           </span>
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <Button className="MenuBtn"
             variant="outline-light"
-            size="lg">{RBtn}
+            onClick={() => {
+              flag === SHOW_CHANNEL ? setFlag(SHOW_CHATROOM) : setFlag(SHOW_CHANNEL);
+            }}>{ flag !== SHOW_CHANNEL ? CHANNEL : CHATROOM }
           </Button>
         </Col>
       </Row>

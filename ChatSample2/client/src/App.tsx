@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import './App.css';
 
 import MySocket from './cpnt/MySocket';
 import Setname from './cpnt/Setname';
 import Chat from './cpnt/Chat';
-import ChatRoom from './cpnt/ChatRoom';
+import ChatRoom from './cpnt/_ChatRoom';
 import { SOCKET_EVENT } from './types';
 
-import NewChatRoom from './cpnt/NewChatRoom';
+import ChatPart from './cpnt/ChatPart';
 
 function App() {
   const [nick, setNick] = useState<string>("Unknown");
@@ -26,7 +26,7 @@ function App() {
     <Container fluid className='vw-100 vh-100'>
       <Row className='vh-100' style={{background:"black"}}>
         <Col md={3} className='px-0'>1 of 3</Col>
-        <Col style={{background:"grey"}}>
+        <Col md={6} style={{background:"grey"}}>
           <div className="App">
             <Setname nick={nick} setNick={setNick}/>
             <Chat nick={nick}/>
@@ -34,7 +34,7 @@ function App() {
           </div>
         </Col>
         <Col md={3} className='px-0'>
-          <NewChatRoom/>
+          <ChatPart/>
         </Col>
       </Row>
     </Container>

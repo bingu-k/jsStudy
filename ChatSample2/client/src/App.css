@@ -4,19 +4,22 @@
 
 .MenuBtn {
   width: 100%;
+  font-size: smaller;
 }
 
 .Channels {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
+  overflow-y: scroll;
 }
 
 .ChannelBtn {
   width: 25%;
   color: white;
   min-width: 100%;
+  font-size: auto;
+}
+
+.ChatRoom {
+  overflow-y: scroll;
 }
 
 .Chat {
