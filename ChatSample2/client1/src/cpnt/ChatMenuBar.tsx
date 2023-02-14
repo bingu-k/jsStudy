@@ -6,16 +6,16 @@ const CHATROOM : string = "Chatting";
 
 export function ChatMenuBar({flag, setFlag} :{flag :boolean, setFlag :React.Dispatch<React.SetStateAction<boolean>>}) {
   return (
-    <Container className="w-100 p-0">
+    <Container className="w-100 pt-3 px-0">
       <Row
-        className="d-flex text-center justify-content-center align-items-center">
+        className="px-3 text-center align-items-center">
         <Col>
           <span style={{ color:"white", fontSize:"auto"}}>
           { flag === SHOW_CHANNEL ? CHANNEL : CHATROOM }
           </span>
         </Col>
-        <Col md={4}>
-          <Button className="MenuBtn"
+        <Col md={4} className="p-0">
+          <Button
             variant="outline-light"
             onClick={() => {
               flag === SHOW_CHANNEL ? setFlag(SHOW_CHATROOM) : setFlag(SHOW_CHANNEL);

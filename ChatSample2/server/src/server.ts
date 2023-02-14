@@ -1,7 +1,7 @@
 import http from "http"
 import { Server } from "socket.io"
 
-import { Message, SERVER_PORT, SOCKET_EVENT } from "../../client/src/types"
+import { Message, SERVER_PORT, SOCKET_EVENT } from "../../client1/src/types"
 
 const httpServer :http.Server = http.createServer();
 const io :Server = new Server(httpServer, {
