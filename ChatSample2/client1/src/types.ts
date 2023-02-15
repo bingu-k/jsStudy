@@ -20,3 +20,6 @@ export const SOCKET_EVENT = {
 
 export const SHOW_CHANNEL :boolean = false;
 export const SHOW_CHATROOM :boolean = true;
+
+export const SHOW_MODAL :boolean = false;
+export const HIDE_MODAL :boolean = true;
